@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,10 +17,13 @@ import lombok.Setter;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name ="MEMBER_ID")
+    @Column(name ="member_id")
     private Long id;
     private String name;
     private String city;
     private String street;
     private String zipcode;
+
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
 }

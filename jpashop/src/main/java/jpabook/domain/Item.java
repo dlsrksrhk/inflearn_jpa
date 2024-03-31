@@ -14,7 +14,7 @@ import lombok.Setter;
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name ="ITEM_ID")
+    @Column(name ="item_id")
     private Long id;
     private String name;
     private int price;
