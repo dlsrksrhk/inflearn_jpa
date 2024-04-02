@@ -1,4 +1,4 @@
-package hellojpa;
+package jpabook.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,14 +11,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Member {
+public class Delivery {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name ="member_id")
+    @Column(name ="delivery_id")
     private Long id;
-    private String name;
-
-    @OneToOne
-    @JoinColumn(name = "locker_id")
-    private Locker locker;
+    private String city;
+    private String street;
+    private String zipcode;
+    private DeliveryStatus status;
 }
