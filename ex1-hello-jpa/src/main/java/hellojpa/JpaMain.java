@@ -15,18 +15,13 @@ public class JpaMain {
 
         try {
             Member member = new Member();
-            member.setId(101L);
-            member.setName("홍길동");
+            member.setName("김또깡");
             em.persist(member);
 
-            TypedQuery<Member> query = em.createQuery("SELECT m FROM Member m ", Member.class);
-            List<Member> members = query.getResultList();
-
-            members.forEach(m -> {
-                System.out.println(m.getName());
-                System.out.println(m.getId());
-            });
-            System.out.println("db 커밋 이전------------------------");
+            Locker locker = new Locker();
+            locker.setLockerNumber("37");
+            em.persist(locker);
+            member.setLocker(locker);
 
             tx.commit();
         } catch (Exception e) {

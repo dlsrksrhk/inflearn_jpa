@@ -34,6 +34,10 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
+    @OneToOne
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
+
     public void changeMember(Member member) {
         this.member = member;
         member.getOrders().add(this);

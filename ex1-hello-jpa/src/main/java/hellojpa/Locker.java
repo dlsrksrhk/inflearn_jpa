@@ -11,14 +11,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Member {
+public class Locker {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name ="member_id")
+    @Column(name ="locker_id")
     private Long id;
-    private String name;
+    private String lockerNumber;
 
-    @OneToOne
-    @JoinColumn(name = "locker_id")
-    private Locker locker;
+    @OneToOne(mappedBy = "locker")
+    private Member member;
 }
