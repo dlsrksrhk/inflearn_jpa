@@ -2,11 +2,17 @@ package hellojpa;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class JpaMain {
 
     public static void main(String[] args) {
+        inheritance_join_test();
+    }
+
+    //상속 조인전략
+    public static void inheritance_join_test() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
         EntityManager em = emf.createEntityManager();
 
@@ -14,14 +20,19 @@ public class JpaMain {
         tx.begin(); //트랜잭션 시작
 
         try {
-            Member member = new Member();
-            member.setName("김또깡");
-            em.persist(member);
+            Movie movie = new Movie();
+            movie.setDirector("김감독");
+            movie.setActor("김배우");
+            movie.setName("재밌는 영화3");
+            movie.setPrice(5000);
+            movie.setCreatedBy("test1");
+            movie.setCreatedDate(LocalDateTime.now());
+            em.persist(movie);
 
-            Locker locker = new Locker();
-            locker.setLockerNumber("37");
-            em.persist(locker);
-            member.setLocker(locker);
+//            Movie movie = em.find(Movie.class, 1L);
+//            System.out.println(movie.getActor());
+//            System.out.println(movie.getName());
+//            System.out.println(movie.getPrice());
 
             tx.commit();
         } catch (Exception e) {

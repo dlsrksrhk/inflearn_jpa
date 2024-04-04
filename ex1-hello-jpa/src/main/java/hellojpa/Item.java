@@ -11,14 +11,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Member  extends BaseEntity {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn
+public abstract class Item extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name ="member_id")
     private Long id;
     private String name;
-
-    @OneToOne
-    @JoinColumn(name = "locker_id")
-    private Locker locker;
+    private int price;
 }
