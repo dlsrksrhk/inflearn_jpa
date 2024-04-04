@@ -2,6 +2,7 @@ package hellojpa;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class JpaMain {
@@ -24,6 +25,8 @@ public class JpaMain {
             movie.setActor("김배우");
             movie.setName("재밌는 영화3");
             movie.setPrice(5000);
+            movie.setCreatedBy("test1");
+            movie.setCreatedDate(LocalDateTime.now());
             em.persist(movie);
 
 //            Movie movie = em.find(Movie.class, 1L);
