@@ -14,15 +14,17 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Item {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn
+public abstract class Item extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name ="item_id")
+    @Column(name = "item_id")
     private Long id;
     private String name;
     private int price;
     private int stockQuantity;
 
-    @ManyToMany(mappedBy="items")
+    @ManyToMany(mappedBy = "items")
     private List<Category> categories = new ArrayList<>();
 }

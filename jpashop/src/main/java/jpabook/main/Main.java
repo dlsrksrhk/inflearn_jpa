@@ -1,24 +1,19 @@
-package jpabook;
+package jpabook.main;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
 import jpabook.domain.Member;
 import jpabook.domain.Order;
 import jpabook.domain.OrderStatus;
+import jpabook.jpa.JpaTemplate;
 
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpashop");
-        EntityManager em = emf.createEntityManager();
+        test();
+    }
 
-        EntityTransaction tx = em.getTransaction(); //JPA의 엔티티 EntityTransaction 얻음
-        tx.begin(); //트랜잭션 시작
-
-        try {
+    public static void test() {
+        new JpaTemplate().execute(em -> {
             Member member1 = new Member();
             member1.setName("member1");
             em.persist(member1);
@@ -47,13 +42,6 @@ public class Main {
             orders2.forEach(order -> {
                 System.out.println(order.getId());
             });
-
-            tx.commit();
-        } catch (Exception e) {
-            tx.rollback();
-        } finally {
-            em.close();
-            emf.close();
-        }
+        });
     }
 }
