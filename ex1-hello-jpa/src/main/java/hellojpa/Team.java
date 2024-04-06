@@ -6,18 +6,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Locker extends BaseEntity {
+public class Team extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "locker_id")
+    @Column(name = "team_id")
     private Long id;
-    private String lockerNumber;
+    private String name;
 
-    @OneToOne(mappedBy = "locker")
-    private Member member;
+    @OneToMany(mappedBy = "team")
+    private List<Member> members;
 }
