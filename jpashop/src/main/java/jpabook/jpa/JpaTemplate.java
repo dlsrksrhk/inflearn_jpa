@@ -7,7 +7,7 @@ import jakarta.persistence.Persistence;
 
 public class JpaTemplate {
     public void execute(JpaFunction function) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpashop");
         EntityManager em = emf.createEntityManager();
 
         EntityTransaction tx = em.getTransaction(); //JPA의 엔티티 EntityTransaction 얻음
