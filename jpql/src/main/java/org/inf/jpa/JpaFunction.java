@@ -1,0 +1,7 @@
+package org.inf.jpa;
+
+import jakarta.persistence.EntityManager;
+
+public interface JpaFunction {
+    void execute(EntityManager em);
+}
