@@ -18,7 +18,23 @@ public class Member {
     private String userName;
     private int age;
 
+    private boolean isDeleted;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
+
+    @Enumerated(EnumType.STRING)
+    private MemberType memberType;
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", age=" + age +
+                ", isDeleted=" + isDeleted +
+                ", memberType=" + memberType +
+                '}';
+    }
 }
