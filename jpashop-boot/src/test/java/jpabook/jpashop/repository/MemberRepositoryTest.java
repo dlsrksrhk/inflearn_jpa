@@ -24,15 +24,15 @@ public class MemberRepositoryTest {
     public void testMethodNameHere() {
         // given
         Member member = new Member();
-        member.setUserName("워로드");
+        member.setName("워로드");
 
         // when
         Long saveId = memberRepository.save(member);
 
         // then
-        Member findMember = memberRepository.find(saveId);
+        Member findMember = memberRepository.findOne(saveId);
         Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
-        Assertions.assertThat(findMember.getUserName()).isEqualTo(member.getUserName());
+        Assertions.assertThat(findMember.getName()).isEqualTo(member.getName());
         Assertions.assertThat(findMember).isEqualTo(member);
     }
 }
