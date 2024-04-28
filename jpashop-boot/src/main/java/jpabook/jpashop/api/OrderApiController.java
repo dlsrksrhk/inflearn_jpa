@@ -49,6 +49,19 @@ public class OrderApiController {
         return result;
     }
 
+    @GetMapping("/api/v2.2/orders")
+    public List<OrderDto> ordersV2_2(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "status", required = false) OrderStatus status
+    ) {
+        List<Order> orders = orderRepository.findAllWithQueryDsl(new OrderSearch(name, status));
+        List<OrderDto> result = orders.stream()
+                .map(o -> new OrderDto(o))
+                .collect(toList());
+
+        return result;
+    }
+
     @GetMapping("/api/v3/orders")
     public List<OrderDto> ordersV3() {
         List<Order> orders = orderRepository.findAllWithItem();

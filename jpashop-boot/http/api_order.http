@@ -23,6 +23,10 @@ GET http://localhost:8080/api/v2/orders
 Content-Type: application/json
 
 ###
+GET http://localhost:8080/api/v2.2/orders?name=userA
+Content-Type: application/json
+
+###
 GET http://localhost:8080/api/v3/orders
 Content-Type: application/json
 
