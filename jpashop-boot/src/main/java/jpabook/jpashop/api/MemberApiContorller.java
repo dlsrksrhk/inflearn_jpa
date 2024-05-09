@@ -16,6 +16,13 @@ import java.util.stream.Collectors;
 public class MemberApiContorller {
     private final MemberService memberService;
 
+    @GetMapping("/api/v1.1/members")
+    public List<Member> memberV1_1() {
+        List<Member> members = memberService.findMembers();
+        members.forEach(member -> member.setName("호울리"));
+        return members;
+    }
+
     @GetMapping("/api/v1/members")
     public List<Member> memberV1() {
         return memberService.findMembers();
