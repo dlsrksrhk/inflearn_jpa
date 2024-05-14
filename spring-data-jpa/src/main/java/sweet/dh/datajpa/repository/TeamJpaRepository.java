@@ -13,7 +13,7 @@ public class TeamJpaRepository {
     @PersistenceContext
     private EntityManager em;
 
-    public Team saveTeam(Team team) {
+    public Team save(Team team) {
         em.persist(team);
         return team;
     }
