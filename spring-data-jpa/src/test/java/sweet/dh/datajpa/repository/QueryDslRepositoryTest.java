@@ -1,27 +1,17 @@
 package sweet.dh.datajpa.repository;
 
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.QueryResults;
-import com.querydsl.core.Tuple;
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.CaseBuilder;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
-import sweet.dh.datajpa.dto.MemberDto;
 import sweet.dh.datajpa.dto.MemberSearchCondition;
 import sweet.dh.datajpa.dto.MemberTeamDto;
-import sweet.dh.datajpa.dto.QMemberDto;
 import sweet.dh.datajpa.entity.Member;
-import sweet.dh.datajpa.entity.QMember;
-import sweet.dh.datajpa.entity.QTeam;
 import sweet.dh.datajpa.entity.Team;
 
 import java.util.List;
@@ -37,9 +27,6 @@ class QueryDslRepositoryTest {
 
     @Autowired
     TeamRepository teamRepository;
-
-    @Autowired
-    MemberDslRepository memberDslRepository;
 
     @Autowired
     EntityManager em;
@@ -76,7 +63,7 @@ class QueryDslRepositoryTest {
 
     @Test
     public void sqlFunction2() {
-        System.out.println(memberDslRepository.findByUsername("member1"));
+        System.out.println(memberRepository.findByUsername("member1"));
     }
 
     @Test
@@ -89,7 +76,7 @@ class QueryDslRepositoryTest {
                 .ageLoe(40)
                 .build();
 
-        List<MemberTeamDto> memberTeamDtos = memberDslRepository.searchByBuilder(condition);
+        List<MemberTeamDto> memberTeamDtos = memberRepository.searchByBuilder(condition);
         memberTeamDtos.forEach(System.out::println);
     }
 
@@ -103,8 +90,45 @@ class QueryDslRepositoryTest {
                 .ageLoe(40)
                 .build();
 
-        List<MemberTeamDto> memberTeamDtos = memberDslRepository.search(condition);
+        List<MemberTeamDto> memberTeamDtos = memberRepository.search(condition);
         memberTeamDtos.forEach(System.out::println);
     }
+
+    @Test
+    public void searchPagingSimple() {
+        MemberSearchCondition condition = MemberSearchCondition
+                .builder()
+                .username("member")
+                .teamName("team")
+                .ageGoe(10)
+                .ageLoe(40)
+                .build();
+
+        PageRequest pageable = PageRequest.of(0, 3);
+
+        Page<MemberTeamDto> pageMemberDto = memberRepository.searchPagingSimple(condition, pageable);
+        System.out.println(pageMemberDto.getSize());
+        System.out.println(pageMemberDto.getTotalElements());
+        System.out.println(pageMemberDto.getContent());
+    }
+
+    @Test
+    public void searchPagingComplex() {
+        MemberSearchCondition condition = MemberSearchCondition
+                .builder()
+                .username("member")
+                .teamName("team")
+                .ageGoe(10)
+                .ageLoe(40)
+                .build();
+
+        PageRequest pageable = PageRequest.of(0, 3);
+
+        Page<MemberTeamDto> pageMemberDto = memberRepository.searchPagingComplex(condition, pageable);
+        System.out.println(pageMemberDto.getSize());
+        System.out.println(pageMemberDto.getTotalElements());
+        System.out.println(pageMemberDto.getContent());
+    }
+
 
 }

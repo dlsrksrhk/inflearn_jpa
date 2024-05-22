@@ -12,7 +12,7 @@ import sweet.dh.datajpa.entity.Member;
 import java.util.List;
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member, Long>, MemberCustomRepository, JpaSpecificationExecutor<Member> {
+public interface MemberRepository extends JpaRepository<Member, Long>, MemberDslRepository, JpaSpecificationExecutor<Member> {
     List<Member> findByUsername(String username);
 
     List<Member> findByUsernameAndAgeGreaterThan(String username, int age);

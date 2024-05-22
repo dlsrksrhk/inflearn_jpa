@@ -10,7 +10,6 @@ import sweet.dh.datajpa.dto.MemberDto;
 import sweet.dh.datajpa.dto.MemberSearchCondition;
 import sweet.dh.datajpa.dto.MemberTeamDto;
 import sweet.dh.datajpa.entity.Member;
-import sweet.dh.datajpa.repository.MemberDslRepository;
 import sweet.dh.datajpa.repository.MemberRepository;
 
 import java.util.List;
@@ -19,8 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberRepository memberRepository;
-
-    private final MemberDslRepository memberDslRepository;
 
     @GetMapping("/members/{id}")
     public String findMember(@PathVariable("id") Long id) {
@@ -36,7 +33,17 @@ public class MemberController {
 
     @GetMapping("/v1/members")
     public List<MemberTeamDto> searchMemberV1(MemberSearchCondition condition) {
-        return memberDslRepository.search(condition);
+        return memberRepository.search(condition);
+    }
+
+    @GetMapping("/v2/members")
+    public Page<MemberTeamDto> searchPagingSimple(MemberSearchCondition condition, Pageable pageable) {
+        return memberRepository.searchPagingSimple(condition, pageable);
+    }
+
+    @GetMapping("/v3/members")
+    public Page<MemberTeamDto> searchPagingComplex(MemberSearchCondition condition, Pageable pageable) {
+        return memberRepository.searchPagingComplex(condition, pageable);
     }
 
 }
